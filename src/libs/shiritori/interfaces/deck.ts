@@ -1,7 +1,8 @@
 import { iWord } from "./word";
 
 export interface iDeck {
-  remove(word: iWord): void;
-  contains(word: iWord): boolean;
-  find(prefix: iWord): Array<iWord>;
+  remove(word: string): void;
+  contains(word: string): boolean;
+  find(prefix: string): Array<iWord>;
+  isEmpty(): boolean;
 }

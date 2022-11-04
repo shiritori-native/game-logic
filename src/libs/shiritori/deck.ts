@@ -6,6 +6,10 @@ export default class Deck implements iDeck {
 	private root: Character;
 	
 	constructor(words: Array<Word>) {
+		if (words.length < 2) {
+			throw new Error("Invalid word count. There needs to be atleast two words in a deck.");
+		}
+
 		this.root = new Character(null);
 		words.forEach(word => this.insert(word));
 	}
@@ -29,12 +33,12 @@ export default class Deck implements iDeck {
 		}
 	}
 
-	public remove(word: Word): boolean {
+	public remove(word: string): boolean {
 		const root = this.root;
-		if (word.characters.length === 0) return true;
+		if (!word) return true;
 
 		const removeWord = function(node: Character): boolean {
-			if (node.end && node.word === word) {
+			if (node.end && node.word?.word === word) {
 				const hasChildren = Object.keys(node.children).length > 0;
 
 				if (hasChildren) {
@@ -56,9 +60,9 @@ export default class Deck implements iDeck {
 		return removeWord(root);
 	}
 
-	public contains(word: Word): boolean {
+	public contains(word: string): boolean {
 		let node = this.root;
-		const characters = word.characters;
+		const characters = word.split("");
 
 		for (let i = 0; i < characters.length; i++) {
 			if (!node.children[characters[i]]) {
@@ -71,9 +75,9 @@ export default class Deck implements iDeck {
 		return node.end;
 	}
 
-	public find(prefix: Word): Array<Word> {
+	public find(prefix: string): Array<Word> {
 		let node = this.root;
-		const characters = prefix.characters;
+		const characters = prefix.split("");
 		const output: Array<Word> = [];
 
 		for (let i = 0; i < characters.length; i++) {
@@ -96,5 +100,9 @@ export default class Deck implements iDeck {
 		for (const child in node.children) {
 			this.findAllWords(node.children[child], output);
 		}
+	}
+
+	public isEmpty(): boolean {
+		return Object.keys(this.root.children).length > 0;
 	}
 }

@@ -1,2 +1,2 @@
-import Game from "./game";
-export default Game;
+import Shiritori from "./shiritori";
+export default Shiritori;
