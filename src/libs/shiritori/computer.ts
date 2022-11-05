@@ -16,10 +16,6 @@ export default class Computer extends Player {
 	}
 
 	public getMove(deck: Deck): string {
-		if (deck.isEmpty()) {
-			throw new Error("Invalid deck. Deck must not be empty.");
-		}
-
 		const words: Array<Word> = deck.getAllWords();
 		return words[0].value;
 	}

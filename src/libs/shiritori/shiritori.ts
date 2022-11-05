@@ -39,11 +39,17 @@ export default class Shiritori implements iShiritori {
 		this.gameIsPlaying = true;
 		
 		while(this.gameIsPlaying) {
+			if (this.deck.isEmpty()) {
+				this.gameIsPlaying = false;
+				break;
+			}
+
 			currentPlayer = this.currentPlayer;
 			const move = currentPlayer.getMove(this.deck);
 
 			if (!this.isValidMove(move)) {
 				this.gameIsPlaying = false;
+				break;
 			}
 
 			this.deck.remove(move);
@@ -57,10 +63,6 @@ export default class Shiritori implements iShiritori {
 	}
 
 	private isValidMove(move: string): boolean {
-		if (this.deck.isEmpty() || !move) {
-			return false;
-		}
-
 		const firstCharacter = move.charAt(0), lastCharacter = move.charAt(move.length - 1);
 		return this.deck.contains(move) && this.lastMoveEndsWith(firstCharacter) && this.isValidCharacter(lastCharacter);
 	}

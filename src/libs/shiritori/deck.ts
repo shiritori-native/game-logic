@@ -126,7 +126,7 @@ export default class Deck implements iDeck {
 	}
 
 	public isEmpty(): boolean {
-		return Object.keys(this.root.children).length === 0;
+		return this.size === 0;
 	}
 
 	public getAllWords(): Array<Word> {
