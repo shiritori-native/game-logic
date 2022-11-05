@@ -1,28 +1,24 @@
+import Computer from "@libs/shiritori/computer";
 import Deck from "@libs/shiritori/deck";
-import Player from "@libs/shiritori/player";
+import Player, { PlayerType } from "@libs/shiritori/player";
+import User from "@libs/shiritori/user";
 import Word from "@libs/shiritori/word";
 
 describe("Shiritori library Player class tests", () => {
 	test("Can create a new human player", () => {
-		const player1: Player = new Player("My player");
-		const player2: Player = new Player("My other player", Player.PLAYER_TYPE);
+		const player1: User = new User("My player");
 
-		expect(player1.type).toBe(Player.PLAYER_TYPE);
-		expect(player2.type).toBe(Player.PLAYER_TYPE);
+		expect(player1.playerType).toBe(PlayerType.USER);
 	});
 
 	test("Can create a new computer player", () => {
-		const player: Player = new Player("Computer player", Player.COMPUTER_TYPE);
+		const player: Computer = new Computer("Computer player");
 
-		expect(player.type).toBe(Player.COMPUTER_TYPE);
-	});
-
-	test("Can not create a player with an invalid type", () => {
-		expect(() => new Player("Invalid player", 3)).toThrowError();
+		expect(player.playerType).toBe(PlayerType.COMPUTER);
 	});
 
 	test("Can get a human players move", () => {
-		const player: Player = new Player("My player");
+		const player: User = new User("My player");
 		const deck: Deck = new Deck([new Word("Hello"), new Word("World")]);
 		const words: Array<string> = deck.getAllWords().map(word => word.value);
 
@@ -30,7 +26,7 @@ describe("Shiritori library Player class tests", () => {
 	});
 
 	test("Can get a computer players move", () => {
-		const player: Player = new Player("Computer Player", Player.COMPUTER_TYPE);
+		const player: Computer = new Computer("Computer Player");
 		const deck: Deck = new Deck([new Word("Hello"), new Word("World")]);
 		const words: Array<string> = deck.getAllWords().map(word => word.value);
 
@@ -38,8 +34,8 @@ describe("Shiritori library Player class tests", () => {
 	});
 
 	test("Can not get a move if the deck is empty", () => {
-		const player1: Player = new Player("My player");
-		const player2: Player = new Player("Computer player", Player.COMPUTER_TYPE);
+		const player1: User = new User("My player");
+		const player2: Computer = new Computer("Computer player");
 		const deck: Deck = new Deck([new Word("a"), new Word("b")]);
 		const getCallback = (player: Player): () => string => {
 			return () => player.getMove(deck);

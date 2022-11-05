@@ -12,11 +12,6 @@ export interface iPlayer {
   name: string;
 
   /**
-   * The type of player playing.
-   */
-  type: number;
-
-  /**
    * Returns the players current move from the deck of available moves
    * @param deck - The current `Shiritori` playing deck
    * @returns The players current move

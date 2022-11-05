@@ -36,6 +36,7 @@ export default class Shiritori implements iShiritori {
 
 	public play(): void {
 		let currentPlayer = this.currentPlayer;
+		this.gameIsPlaying = true;
 		
 		while(this.gameIsPlaying) {
 			currentPlayer = this.currentPlayer;
