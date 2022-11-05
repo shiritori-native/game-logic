@@ -24,7 +24,7 @@ describe("Shiritori library Player class tests", () => {
 	test("Can get a human players move", () => {
 		const player: Player = new Player("My player");
 		const deck: Deck = new Deck([new Word("Hello"), new Word("World")]);
-		const words: Array<string> = deck.getAllWords().map(word => word.word);
+		const words: Array<string> = deck.getAllWords().map(word => word.value);
 
 		expect(words).toContain(player.getMove(deck));
 	});
@@ -32,7 +32,7 @@ describe("Shiritori library Player class tests", () => {
 	test("Can get a computer players move", () => {
 		const player: Player = new Player("Computer Player", Player.COMPUTER_TYPE);
 		const deck: Deck = new Deck([new Word("Hello"), new Word("World")]);
-		const words: Array<string> = deck.getAllWords().map(word => word.word);
+		const words: Array<string> = deck.getAllWords().map(word => word.value);
 
 		expect(words).toContain(player.getMove(deck));
 	});

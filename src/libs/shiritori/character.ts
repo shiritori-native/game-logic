@@ -1,17 +1,32 @@
-import { iCharacter } from "./interfaces/character";
 import Word from "./word";
 
-export default class Character implements iCharacter {
-	parent: Character | null;
-	character: string | null;
-	children: { [key: string]: Character};
-	end: boolean;
-	word?: Word;
+/**
+ * Character trie nodes for the Deck class.
+ */
+export type Character = {
 
-	constructor(character: string | null) {
-		this.parent = null;
-		this.character = character;
-		this.children = {};
-		this.end = false;
-	}
+	/**
+   * Parent Character trie node
+   */
+	parent?: Character | null;
+
+	/**
+   * String representing the characters value
+   */
+	character: string | null;
+
+	/**
+   * Child Character Trie nodes
+   */
+	children: { [key: string]: Character};
+
+	/**
+   * Boolean indicating if Character Trie node is the end of a word
+   */
+	end: boolean;
+
+	/**
+   * Associated `Word` object for the specified word
+   */
+	word?: Word;
 }

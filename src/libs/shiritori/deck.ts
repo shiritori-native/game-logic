@@ -1,17 +1,35 @@
-import Character from "./character";
+import { Character } from "./character";
 import Word from "./word";
 import { iDeck } from "./interfaces/deck";
 
+/**
+ * Trie class representing `Shiritori` game deck
+ */
 export default class Deck implements iDeck {
 	private root: Character;
 	
+	/**
+	 * @param words Array of words to put into the deck
+	 */
 	constructor(words: Array<Word>) {
 		if (words.length < 1) {
 			throw new Error("Invalid word count. There needs to be atleast a single word in a deck.");
 		}
 
-		this.root = new Character(null);
+		this.root = {
+			character: null,
+			children: {},
+			end: false
+		};
+
 		words.forEach(word => this.insert(word));
+	}
+
+	/**
+   * The current size of the deck by the number of words in it
+   */
+	public get size(): number {
+		return this.getAllWords().length;
 	}
 
 	private insert(word: Word): void {
@@ -20,7 +38,12 @@ export default class Deck implements iDeck {
 
 		for (let i = 0; i < characters.length; i++) {
 			if (!node.children[characters[i]]) {
-				node.children[characters[i]] = new Character(characters[i]);
+				node.children[characters[i]] = {
+					parent: node,
+					character: characters[i],
+					children: {},
+					end: false
+				};
 				node.children[characters[i]].parent = node;
 			}
 
@@ -38,13 +61,13 @@ export default class Deck implements iDeck {
 		if (!word) return true;
 
 		const removeWord = function(node: Character): boolean {
-			if (node.end && node.word?.word === word) {
+			if (node.end && node.word?.value === word) {
 				const hasChildren = Object.keys(node.children).length > 0;
 
 				if (hasChildren) {
 					node.end = false;
 				} else {
-					if (node.parent !== null && node.character !== null) delete node.parent.children[node.character];
+					if (node.parent && node.character) delete node.parent.children[node.character];
 				}
 
 				return true;
@@ -100,10 +123,6 @@ export default class Deck implements iDeck {
 		for (const child in node.children) {
 			this.findAllWords(node.children[child], output);
 		}
-	}
-
-	public get size(): number {
-		return this.getAllWords().length;
 	}
 
 	public isEmpty(): boolean {

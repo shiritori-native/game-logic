@@ -3,6 +3,9 @@ import { iShiritori } from "./interfaces/shiritori";
 import Player from "./player";
 import Word from "./word";
 
+/**
+ * `Shiritori` game class
+ */
 export default class Shiritori implements iShiritori {
 	private deck: Deck;
 	private players: Array<Player>;
@@ -12,6 +15,10 @@ export default class Shiritori implements iShiritori {
 
 	winner?: Player;
 
+	/**
+	 * @param deck - The starting Shiritori deck
+	 * @param players - Array of all players participating in the game
+	 */
 	constructor(deck: Deck, players: Array<Player>) {
 		if (deck.isEmpty()) {
 			throw new Error("Invalid deck. Deck can not be empty.");
