@@ -1,5 +1,5 @@
-import Deck from "./deck";
-import { iPlayer } from "./interfaces/player";
+import Deck from "@libs/shiritori/deck";
+import { iPlayer } from ".";
 
 export enum PlayerType {
 	USER = 1,
@@ -19,7 +19,6 @@ export default abstract class Player implements iPlayer {
 
 	/**
 	 * @param name - Name of the player to be created
-	 * @param type - The type of the player to be created
 	 */
 	constructor(name: string) {
 		this.name = name;

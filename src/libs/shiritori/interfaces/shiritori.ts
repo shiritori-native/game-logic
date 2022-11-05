@@ -1,4 +1,4 @@
-import { iPlayer } from "./player";
+import { iPlayer } from "@libs/shiritori/player";
 
 /**
  * `Shiritori` game interface

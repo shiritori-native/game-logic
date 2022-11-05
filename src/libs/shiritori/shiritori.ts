@@ -1,5 +1,5 @@
 import Deck from "./deck";
-import { iShiritori } from "./interfaces/shiritori";
+import { iShiritori } from ".";
 import Player from "./player";
 import Word from "./word";
 

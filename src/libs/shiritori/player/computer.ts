@@ -1,6 +1,6 @@
-import Deck from "./deck";
+import Deck from "@libs/shiritori/deck";
 import Player, { PlayerType } from "./player";
-import Word from "./word";
+import Word from "@libs/shiritori/word";
 
 /**
  * `Computer` player class for the `Shiritori` class

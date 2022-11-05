@@ -1,4 +1,4 @@
-import { iWord } from "./word";
+import { iWord } from "@libs/shiritori/word";
 
 /**
  * Trie interface representing `Shiritori` game deck

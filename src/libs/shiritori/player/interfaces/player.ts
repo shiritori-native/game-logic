@@ -1,4 +1,4 @@
-import { iDeck } from "./deck";
+import { iDeck } from "@libs/shiritori/deck";
 
 /**
  * `Player` interface for the `Shiritori` class

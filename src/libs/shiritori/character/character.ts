@@ -1,4 +1,4 @@
-import Word from "./word";
+import Word from "@libs/shiritori/word";
 
 /**
  * Character trie nodes for the Deck class.

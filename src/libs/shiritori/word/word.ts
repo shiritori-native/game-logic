@@ -1,4 +1,4 @@
-import { iWord } from "./interfaces/word";
+import { iWord } from ".";
 
 /**
  * `Word` class for `Shiritori` words in a game deck

@@ -1,7 +1,6 @@
 import Shiritori from "@libs/shiritori";
-import Computer from "@libs/shiritori/computer";
+import { Computer, User } from "@libs/shiritori/player";
 import Deck from "@libs/shiritori/deck";
-import User from "@libs/shiritori/user";
 import Word from "@libs/shiritori/word";
 
 describe("Shiritori library Shiritori class tests", () => {

@@ -1,6 +1,6 @@
-import { Character } from "./character";
-import Word from "./word";
-import { iDeck } from "./interfaces/deck";
+import { Character } from "@libs/shiritori/character";
+import Word from "@libs/shiritori/word";
+import { iDeck } from ".";
 
 /**
  * Trie class representing `Shiritori` game deck
