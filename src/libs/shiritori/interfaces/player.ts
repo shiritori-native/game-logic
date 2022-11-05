@@ -1,5 +1,8 @@
+import { iDeck } from "./deck";
+
 export interface iPlayer {
   name: string;
+  type: number;
 
-  getMove(): string;
+  getMove(deck: iDeck): string;
 }

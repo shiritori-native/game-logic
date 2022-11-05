@@ -6,8 +6,8 @@ export default class Deck implements iDeck {
 	private root: Character;
 	
 	constructor(words: Array<Word>) {
-		if (words.length < 2) {
-			throw new Error("Invalid word count. There needs to be atleast two words in a deck.");
+		if (words.length < 1) {
+			throw new Error("Invalid word count. There needs to be atleast a single word in a deck.");
 		}
 
 		this.root = new Character(null);
@@ -44,7 +44,7 @@ export default class Deck implements iDeck {
 				if (hasChildren) {
 					node.end = false;
 				} else {
-					if (node.parent !== null) node.parent.children = {};
+					if (node.parent !== null && node.character !== null) delete node.parent.children[node.character];
 				}
 
 				return true;
@@ -102,7 +102,18 @@ export default class Deck implements iDeck {
 		}
 	}
 
+	public get size(): number {
+		return this.getAllWords().length;
+	}
+
 	public isEmpty(): boolean {
-		return Object.keys(this.root.children).length > 0;
+		return Object.keys(this.root.children).length === 0;
+	}
+
+	public getAllWords(): Array<Word> {
+		const output: Array<Word> = [];
+
+		this.findAllWords(this.root, output);
+		return output;
 	}
 }

@@ -11,11 +11,11 @@ export default class Word implements iWord {
 		this.value = value;
 	}
 
-	public getStartingKana(): string {
+	public get startingKana(): string {
 		return this.characters[0];
 	}
 
-	public getEndingKana(): string {
+	public get endingKana(): string {
 		return this.characters[this.characters.length - 1];
 	}
 }

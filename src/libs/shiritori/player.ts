@@ -1,14 +1,15 @@
+import Deck from "./deck";
 import { iPlayer } from "./interfaces/player";
+import Word from "./word";
 
 export default class Player implements iPlayer {
-	private readonly PLAYER_TYPE = 1;
-	private readonly COMPUTER_TYPE = 2;
+	static readonly PLAYER_TYPE = 1;
+	static readonly COMPUTER_TYPE = 2;
+	readonly type: number;
+	readonly name: string;
 
-	name: string;
-	private type: number;
-
-	constructor(name: string, type: number) {
-		if (type !== this.PLAYER_TYPE && type !== this.COMPUTER_TYPE) {
+	constructor(name: string, type: number = Player.PLAYER_TYPE) {
+		if (type !== Player.PLAYER_TYPE && type !== Player.COMPUTER_TYPE) {
 			throw new Error("Invalid player type " + type);
 		}
 
@@ -16,7 +17,25 @@ export default class Player implements iPlayer {
 		this.type = type;
 	}
 
-	public getMove(): string {
-		return "";
+	public getMove(deck: Deck): string {
+		if (deck.isEmpty()) {
+			throw new Error("Invalid deck. Deck must not be empty.");
+		}
+
+		if (this.type === Player.COMPUTER_TYPE) {
+			return this.getComputerMove(deck);
+		} else {
+			return this.getPlayerMove(deck);
+		}
+	}
+
+	private getComputerMove(deck: Deck): string {
+		const words: Array<Word> = deck.getAllWords();
+		return words[0].word;
+	}
+
+	private getPlayerMove(deck: Deck): string {
+		const words: Array<Word> = deck.getAllWords();
+		return words[0].word;
 	}
 }
