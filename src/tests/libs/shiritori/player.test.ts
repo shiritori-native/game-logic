@@ -41,14 +41,12 @@ describe("Shiritori library Player class tests", () => {
 		const player1: Player = new Player("My player");
 		const player2: Player = new Player("Computer player", Player.COMPUTER_TYPE);
 		const deck: Deck = new Deck([new Word("a"), new Word("b")]);
-
-		deck.remove("a");
-		deck.remove("b");
-
 		const getCallback = (player: Player): () => string => {
 			return () => player.getMove(deck);
 		};
 
+		deck.remove("a");
+		deck.remove("b");
 		expect(getCallback(player1)).toThrowError();
 		expect(getCallback(player2)).toThrowError();
 	});

@@ -5,29 +5,33 @@ import Word from "./word";
 
 export default class Shiritori implements iShiritori {
 	private deck: Deck;
+	private players: Array<Player>;
 	private gameIsPlaying: boolean;
 	private currentPlayerTurn: number;
 	private lastMove?: Word;
 
-	constructor(deck: Deck) {
+	winner?: Player;
+
+	constructor(deck: Deck, players: Array<Player>) {
 		if (deck.isEmpty()) {
 			throw new Error("Invalid deck. Deck can not be empty.");
 		}
 
-		this.deck = deck;
-		this.gameIsPlaying = false;
-		this.currentPlayerTurn = -1;
-	}
-
-	public play(players: Array<Player>): Player {
 		if (players.length === 0) {
 			throw new Error("Invalid number of players. Atleast one player is needed to play.");
 		}
 
-		let currentPlayer = this.getCurrentPlayer(players);
+		this.deck = deck;
+		this.players = players;
+		this.gameIsPlaying = false;
+		this.currentPlayerTurn = -1;
+	}
+
+	public play(): void {
+		let currentPlayer = this.currentPlayer;
 		
 		while(this.gameIsPlaying) {
-			currentPlayer = this.getCurrentPlayer(players);
+			currentPlayer = this.currentPlayer;
 			const move = currentPlayer.getMove(this.deck);
 
 			if (!this.isValidMove(move)) {
@@ -37,11 +41,11 @@ export default class Shiritori implements iShiritori {
 			this.deck.remove(move);
 		}
 
-		return currentPlayer;
+		this.winner = this.currentPlayer;
 	}
 
-	private getCurrentPlayer(players: Array<Player>): Player {
-		return players[(this.currentPlayerTurn + 1) % players.length];
+	private get currentPlayer(): Player {
+		return this.players[(this.currentPlayerTurn + 1) % this.players.length];
 	}
 
 	private isValidMove(move: string): boolean {
@@ -59,9 +63,5 @@ export default class Shiritori implements iShiritori {
 
 	private isValidCharacter(character: string): boolean {
 		return character !== "n";
-	}
-
-	public getLegalMoves(prefix: string): Array<Word> {
-		return this.deck.find(prefix);
 	}
 }
