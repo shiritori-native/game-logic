@@ -19,12 +19,24 @@ describe("Shiritori library Deck class tests", () => {
 	});
 
 	test("Can remove words in a deck", () => {
-		const words: Array<Word> = [new Word("Word 1"), new Word("Word 2")];
+		const words: Array<Word> = [new Word("Word 1"), new Word("Word 2"), new Word("Word 20")];
 		const deck: Deck = new Deck(words);
 
 		deck.remove("Word 2");
 		expect(deck.contains("Word 1")).toBe(true);
 		expect(deck.contains("Word 2")).toBe(false);
+		expect(deck.contains("Word 20")).toBe(true);
+
+		deck.remove("Word 1");
+		expect(deck.contains("Word 1")).toBe(false);
+	});
+
+	test("Can not remove words that are not in deck", () => {
+		const words: Array<Word> = [new Word("Word 1")];
+		const deck: Deck = new Deck(words);
+
+		expect(deck.remove("Made up")).toBe(false);
+		expect(deck.remove("")).toBe(false);
 	});
 
 	test("Can use a prefix to find words in a deck", () => {

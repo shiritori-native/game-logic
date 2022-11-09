@@ -12,31 +12,31 @@ export interface RuleOptions {
   /**
    * Boolean value indicating if the last two kana must be matched
    */
-  lastTwoKana: boolean;
+  lastTwoKana?: boolean;
 
   /**
    * Boolean value indicating if a timer should be used to limit turn length
    */
-  useTimer: boolean;
+  useTimer?: boolean;
 
   /**
    * Number value indicating the timers length in seconds
    */
-  timerLength: number;
+  timerLength?: number;
 
   /**
    * Boolean value indicating if the game will use the vowel ending or the kana on chōonpu (a long vowel)
    */
-  longVowels: boolean;
+  longVowels?: boolean;
 
   /**
    * Boolean value indicating if dakuon or handakuon characters are needed if they end a word
    */
-  ignoreTenTen: boolean;
+  ignoreTenTen?: boolean;
 
   /**
    * Boolean value indicating if combination characters are needed if they end a word
    */
-  useCombinations: boolean;
+  useCombinations?: boolean;
 
 }

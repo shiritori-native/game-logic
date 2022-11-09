@@ -58,7 +58,7 @@ export default class Deck implements iDeck {
 
 	public remove(word: string): boolean {
 		const root = this.root;
-		if (!word) return true;
+		if (!word) return false;
 
 		const removeWord = function(node: Character): boolean {
 			if (node.end && node.word?.value === word) {
