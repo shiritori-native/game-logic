@@ -8,7 +8,7 @@ export type Character = {
 	/**
    * Parent Character trie node
    */
-	parent?: Character | null;
+	parent?: Character;
 
 	/**
    * String representing the characters value

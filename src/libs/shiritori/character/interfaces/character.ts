@@ -8,7 +8,7 @@ export interface iCharacter {
   /**
    * Parent Character trie node
    */
-  parent: iCharacter | null;
+  parent?: iCharacter;
 
   /**
    * String representing the characters value
