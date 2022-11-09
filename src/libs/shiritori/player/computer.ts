@@ -6,7 +6,7 @@ import Word from "@libs/shiritori/word";
  * `Computer` player class for the `Shiritori` class
  */
 export default class Computer extends Player {
-	playerType: PlayerType = PlayerType.COMPUTER;
+	readonly playerType: PlayerType = PlayerType.COMPUTER;
 
 	/**
 	 * @param name - Name of the player to be created

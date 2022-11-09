@@ -2,15 +2,17 @@ import Deck from "./deck";
 import { iShiritori } from ".";
 import Player from "./player";
 import Word from "./word";
+import PlayerQueue from "./playerQueue";
+import Rules from "./rules";
 
 /**
  * `Shiritori` game class
  */
 export default class Shiritori implements iShiritori {
 	private deck: Deck;
-	private players: Array<Player>;
+	private playerQueue: PlayerQueue<Player>;
 	private gameIsPlaying: boolean;
-	private currentPlayerTurn: number;
+	private rules: Rules;
 	private lastMove?: Word;
 
 	winner?: Player;
@@ -19,59 +21,59 @@ export default class Shiritori implements iShiritori {
 	 * @param deck - The starting Shiritori deck
 	 * @param players - Array of all players participating in the game
 	 */
-	constructor(deck: Deck, players: Array<Player>) {
+	constructor(deck: Deck, playerQueue: PlayerQueue<Player>, rules: Rules = new Rules()) {
 		if (deck.isEmpty()) {
 			throw new Error("Invalid deck. Deck can not be empty.");
 		}
 
-		if (players.length === 0) {
-			throw new Error("Invalid number of players. Atleast one player is needed to play.");
+		if (playerQueue.isEmpty()) {
+			throw new Error("Invalid player queue. Player queue can not be empty.");
 		}
 
 		this.deck = deck;
-		this.players = players;
+		this.playerQueue = playerQueue;
+		this.rules = rules;
 		this.gameIsPlaying = false;
-		this.currentPlayerTurn = -1;
 	}
 
 	public play(): void {
-		let currentPlayer = this.currentPlayer;
+		let currentPlayer = this.playerQueue.getCurrentPlayer();
 		this.gameIsPlaying = true;
 		
 		while(this.gameIsPlaying) {
-			if (this.deck.isEmpty()) {
-				this.gameIsPlaying = false;
-				break;
+			const move: string = currentPlayer.getMove(this.deck);
+
+			if (this.isValidMove(move)) {
+				this.lastMove = this.deck.getWord(move);
+				this.removeWord(move);
+			} else {
+				this.removePlayer(currentPlayer);
 			}
 
-			currentPlayer = this.currentPlayer;
-			const move = currentPlayer.getMove(this.deck);
-
-			if (!this.isValidMove(move)) {
+			if (this.gameShouldEnd()) {
 				this.gameIsPlaying = false;
-				break;
+			} else {
+				currentPlayer = this.playerQueue.getCurrentPlayer();
 			}
-
-			this.deck.remove(move);
 		}
 
-		this.winner = this.currentPlayer;
+		this.winner = currentPlayer;
 	}
 
-	private get currentPlayer(): Player {
-		return this.players[(this.currentPlayerTurn + 1) % this.players.length];
+	private removePlayer(player: Player): void {
+		this.playerQueue.remove(player);
+	}
+
+	private removeWord(word: string): void {
+		this.deck.remove(word);
 	}
 
 	private isValidMove(move: string): boolean {
-		const firstCharacter = move.charAt(0), lastCharacter = move.charAt(move.length - 1);
-		return this.deck.contains(move) && this.lastMoveEndsWith(firstCharacter) && this.isValidCharacter(lastCharacter);
+		const lastMove: string | undefined = this.lastMove?.value;
+		return this.deck.contains(move) && this.rules.isValidMove(move, lastMove);
 	}
 
-	private lastMoveEndsWith(character: string): boolean {
-		return (!this.lastMove) || character === this.lastMove.endingKana;
-	}
-
-	private isValidCharacter(character: string): boolean {
-		return character !== "n";
+	private gameShouldEnd(): boolean {
+		return this.deck.isEmpty() || this.playerQueue.size <= 1;
 	}
 }

@@ -26,8 +26,8 @@ export default class Deck implements iDeck {
 	}
 
 	/**
-   * The current size of the deck by the number of words in it
-   */
+	 * The current size of the deck by the number of words in it
+	 */
 	public get size(): number {
 		return this.getAllWords().length;
 	}
@@ -134,5 +134,20 @@ export default class Deck implements iDeck {
 
 		this.findAllWords(this.root, output);
 		return output;
+	}
+
+	public getWord(word: string): Word | undefined {
+		let node: Character = this.root;
+		const characters: Array<string> = word.split("");
+
+		for (let i = 0; i < characters.length; i++) {
+			if (!(characters[i] in node.children)) {
+				return undefined;
+			}
+
+			node = node.children[characters[i]];
+		}
+
+		return node.word;
 	}
 }

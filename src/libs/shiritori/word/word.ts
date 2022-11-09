@@ -4,9 +4,9 @@ import { iWord } from ".";
  * `Word` class for `Shiritori` words in a game deck
  */
 export default class Word implements iWord {
-	public value: string;
-	public characters: Array<string>;
-	public score?: number | undefined;
+	public readonly value: string;
+	public readonly characters: Array<string>;
+	public readonly score?: number | undefined;
 
 	/**
 	 * @param word - String value of the word

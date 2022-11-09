@@ -1,12 +1,12 @@
 import Deck from "@libs/shiritori/deck";
-import Player, { PlayerType } from ".";
+import Player, { PlayerType } from "./player";
 import Word from "@libs/shiritori/word";
 
 /**
  * `User` player class for the `Shiritori` class
  */
 export default class User extends Player {
-	playerType: PlayerType = PlayerType.USER;
+	readonly playerType: PlayerType = PlayerType.USER;
 
 	/**
 	 * @param name - Name of the player to be created

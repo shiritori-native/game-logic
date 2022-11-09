@@ -42,4 +42,11 @@ export interface iDeck {
    * @returns All words in the entire deck
    */
   getAllWords(): Array<iWord>;
+
+  /**
+   * Returns the associated `Word` object matching the provided string
+   * @param word - Searcn word to find the associated `Word` object
+   * @returns `Word` object with matching string value
+   */
+  getWord(word: string): iWord | undefined;
 }

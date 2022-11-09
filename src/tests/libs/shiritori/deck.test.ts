@@ -35,6 +35,15 @@ describe("Shiritori library Deck class tests", () => {
 		expect(find).toContain(words[0]);
 		expect(find).toContain(words[1]);
 		expect(find).not.toContain(words[2]);
+		expect(deck.find("A")).toHaveLength(0);
+	});
+
+	test("Can get an associated word in a deck", () => {
+		const words: Array<Word> = [new Word("Word 1"), new Word("Word 2")];
+		const deck: Deck = new Deck(words);
+
+		expect(deck.getWord("Word 1")).toBe(words[0]);
+		expect(deck.getWord("Not here")).toBeUndefined();
 	});
 
 	test("Throws an error if no words are passed into a deck", () => {
